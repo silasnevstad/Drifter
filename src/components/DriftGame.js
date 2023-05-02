@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import Car from './Car';
+// import TireMarks from './TireMarks';
 import World from './World';
 import Camera from './Camera';
 import InputHandler from './InputHandler';
+import addSkyGradient from './SkyGradient';
 
 class DriftGame extends Component {
   constructor(props) {
@@ -23,9 +25,9 @@ class DriftGame extends Component {
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-  
-    // Append the renderer's DOM element to the container ref instead of the document body
     this.container.current.appendChild(this.renderer.domElement);
+
+    addSkyGradient(this.scene);
   }
 
   initLights() {
@@ -43,6 +45,9 @@ class DriftGame extends Component {
 
     this.car = new Car();
     this.scene.add(this.car.group);
+
+    // this.tireMarks = new TireMarks();
+    // this.tireMarks.getMeshes().forEach(mesh => this.scene.add(mesh));
     
     this.camera = new Camera();
   }
@@ -58,8 +63,9 @@ class DriftGame extends Component {
       const deltaTime = this.clock.getDelta();
       this.inputHandler.update();
       this.car.update(deltaTime);
+      // this.world.update(this.car);
       this.camera.update(this.car);
-  
+
       this.renderer.render(this.scene, this.camera.camera);
     };
   

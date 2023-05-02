@@ -33,6 +33,9 @@ class InputHandler {
       if (this.pressedKeys['ArrowRight']) {
         this.car.turn(-1);
       }
+      if (this.pressedKeys['Space']) {
+        this.car.handbrake();
+      }
     }
   }
   
